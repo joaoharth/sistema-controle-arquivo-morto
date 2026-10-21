@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arquivo Morto</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--desk:#D9DBDE;--paper:#fff;--p2:#F4F5F6;--ink:#25272B;--ink2:#6B6F76;--rule:#E4E7EB;--rule2:#C9CDD3;--y:#F2B705;--hl:#FFF3C4;--danger:#B3261E;--ok:#2F7A68;--warn:#B8650B;--blue:#3B5FB0;
+--fd:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;--fb:"Instrument Sans","Segoe UI",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--desk:#16171A;--paper:#23252A;--p2:#1C1E22;--ink:#ECEDEF;--ink2:#A3A7AE;--rule:#30333A;--rule2:#454952;--y:#F5C431;--hl:#4A3D12;--danger:#F2867E;--ok:#5FC2A8;--warn:#F0A458;--blue:#8FAAF0;color-scheme:dark}}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--desk);color:var(--ink);font:15px/1.45 var(--fb)}
+header{background:var(--paper);border-bottom:3px solid var(--y);padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;position:sticky;top:0;z-index:5}
+.brand{font:800 22px var(--fd);letter-spacing:-.02em}.brand small{display:block;font:500 10.5px var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+nav{display:flex;gap:4px;flex-wrap:wrap}nav button{border:0;background:none;font:600 14px var(--fb);color:var(--ink2);padding:8px 12px;border-radius:6px;cursor:pointer}
+nav button.on{background:var(--hl);color:var(--ink)}nav button:hover{background:var(--p2)}
+.st{margin-left:auto;font-size:12px;color:var(--ink2);display:flex;gap:8px;align-items:center}
+main{max-width:1180px;margin:0 auto;padding:18px 16px 60px}
+h1{font:800 26px var(--fd);margin:0 0 14px}h2{font:700 17px var(--fd);margin:0 0 10px}
+.card{background:var(--paper);border-radius:8px;padding:16px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.k{background:var(--paper);border-radius:8px;padding:14px;border-left:5px solid var(--y);cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.12);text-align:left;border-top:0;border-right:0;border-bottom:0;font:inherit;color:inherit}
+.k b{display:block;font:800 30px var(--fd)}.k span{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.in,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--p2);border:1px solid var(--rule2);border-radius:6px;padding:8px 10px}
+.in:focus,select:focus,textarea:focus{outline:2px solid var(--y);border-color:var(--y)}
+label{display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:3px}
+.g{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:10px}.g.w{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.btn{font:600 14px var(--fb);border:1px solid var(--rule2);background:var(--paper);color:var(--ink);padding:8px 14px;border-radius:6px;cursor:pointer}
+.btn:hover{background:var(--p2)}.btn.pri{background:var(--y);border-color:var(--y);color:#25272B}.btn.dng{color:var(--danger);border-color:var(--danger)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}.sp{flex:1}
+.tw{overflow-x:auto}table.t{width:100%;border-collapse:collapse;font-size:14px}
+.t th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);padding:8px;border-bottom:2px solid var(--rule2);white-space:nowrap}
+.t td{padding:8px;border-bottom:1px solid var(--rule);vertical-align:top}.t tr[data-act]{cursor:pointer}.t tr[data-act]:hover td{background:var(--hl)}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.s0{color:var(--ok)}.s1{color:var(--warn)}.s2{color:var(--blue)}.s3{color:var(--ink2)}
+.muted{color:var(--ink2);font-size:13px}.empty{color:var(--ink2);padding:18px 0;text-align:center}.err{color:var(--danger);font-weight:600;min-height:1em;margin:6px 0}
+.warn{background:var(--hl);border-left:5px solid var(--y);padding:10px 14px;border-radius:6px;margin-bottom:16px}
+.ov{position:fixed;inset:0;background:rgba(20,22,26,.55);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px;z-index:20}
+.box{background:var(--paper);border-radius:10px;padding:20px;width:100%;max-width:820px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0 0 12px}dt{color:var(--ink2);font-size:13px}dd{margin:0}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:8px;z-index:30;max-width:90vw}
+@media print{header,.noprint,#toast{display:none!important}body{background:#fff;color:#000}.card{box-shadow:none;padding:0}main{padding:0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Arquivo Morto<small>Controle de caixas</small></div>
+  <nav id="nav">
+    <button data-act="go" data-v="home">Início</button><button data-act="go" data-v="cx">Caixas</button><button data-act="go" data-v="emp">Empresas</button><button data-act="go" data-v="mov">Movimentações</button><button data-act="go" data-v="rep">Relatórios</button>
+  </nav>
+  <div class="st"><span id="mode">Não conectado</span><button class="btn" data-act="refresh" title="Reler os dados da pasta agora">Atualizar</button></div>
+</header>
+<main id="main"></main>
+
+<div class="ov" id="cx" hidden><div class="box" style="max-width:520px">
+  <h2>Conectar à pasta do Arquivo Morto</h2>
+  <p id="cxTxt"></p><p class="err" id="cxErr" role="alert"></p>
+  <div class="bar"><span class="sp"></span><button class="btn pri" type="button" id="cxBtn">Escolher a pasta do Arquivo Morto</button></div>
+  <p class="muted" id="cxDiag" style="word-break:break-all;font-size:11.5px"></p>
+</div></div>
+<div class="ov" id="md" hidden><div class="box" id="mdBox"></div></div>
+<div id="toast" hidden></div>
+
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=s=>String(s==null?'':s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const pad=n=>String(n).padStart(2,'0'),T=s=>String(s==null?'':s).trim();
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());};
+const nowL=()=>{const d=new Date();return today()+'T'+pad(d.getHours())+':'+pad(d.getMinutes());};
+const dBR=s=>s?s.slice(8,10)+'/'+s.slice(5,7)+'/'+s.slice(0,4):'';
+const dtBR=s=>s?dBR(s)+(s.length>10?' '+s.slice(11,16):''):'';
+const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const SIT=['Armazenada','Retirada','Aguardando entrega','Entregue'];
+const TIPOS=['Contabilidade','Fiscal','Financeiro','Entradas','Saídas','Contratos','Administrativo','Outros'];
+const MOVS=['Retirada','Devolução','Mudança de localização','Aguardando entrega','Entrega','Outra movimentação'];
+const opt=(a,sel,blank)=>(blank!=null?'<option value="">'+blank+'</option>':'')+a.map(x=>'<option'+(x===sel?' selected':'')+'>'+esc(x)+'</option>').join('');
+const mask=s=>{s=String(s||'').replace(/[^0-9A-Za-z]/g,'').toUpperCase().slice(0,14);let o='';for(let i=0;i<s.length;i++){if(i===2||i===5)o+='.';if(i===8)o+='/';if(i===12)o+='-';o+=s[i];}return o;};
+const toast=m=>{const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>{t.hidden=true;},3400);};
+
+/* ---------- armazenamento: pasta "dados" ao lado deste arquivo, no servidor ----------
+   Um arquivo .json por registro (empresas, caixas, movimentacoes). Duas pessoas cadastrando ao mesmo tempo
+   nunca sobrescrevem uma à outra. Edição do MESMO registro é protegida por número de revisão (rev). */
+const COLS={emp:{dir:'empresas',pre:'emp'},cx:{dir:'caixas',pre:'cx'},mov:{dir:'movimentacoes',pre:'mov'}};
+const D={emp:{},cx:{},mov:{}};
+const FS={dados:null,cache:new Map(),busy:false,marker:null,last:0,ready:false,saved:null};
+class Conflict extends Error{}
+const sub=(n,c=true)=>FS.dados.getDirectoryHandle(n,{create:c});
+async function writeFile(dir,name,obj){const fh=await dir.getFileHandle(name,{create:true}),txt=JSON.stringify(obj),w=await fh.createWritable();await w.write(txt);await w.close();
+  if(await(await fh.getFile()).text()!==txt)throw new Error('A conferência da gravação falhou.');}
+async function readJson(dir,name){return JSON.parse(await(await dir.getFileHandle(name)).getFile().then(f=>f.text()));}
+async function touch(){try{const t=newId();await writeFile(await sub('config'),'alteracao.json',{t});FS.marker=t;}catch(e){console.warn(e);}}
+async function save(col,rec,isNew){
+  const c=COLS[col],dir=await sub(c.dir),name=c.pre+'_'+rec.id+'.json';
+  if(!isNew){let disk;try{disk=await readJson(dir,name);}catch(e){if(e&&e.name==='NotFoundError')throw new Conflict('Este registro foi excluído por outra pessoa.');throw e;}
+    if((disk.rev||0)!==(rec.rev||0))throw new Conflict('Este registro foi alterado por outra pessoa enquanto você editava.');}
+  const out=Object.assign({},rec,{rev:(rec.rev||0)+1,atualizadoEm:Date.now()});
+  await writeFile(dir,name,out);D[col][out.id]=out;await touch();return out;}
+async function remove(col,rec){ /* move uma cópia para dados\lixeira antes de apagar */
+  const c=COLS[col],dir=await sub(c.dir),name=c.pre+'_'+rec.id+'.json';let cur=rec;
+  try{cur=await readJson(dir,name);}catch(e){if(!(e&&e.name==='NotFoundError'))throw e;}
+  await writeFile(await sub('lixeira'),name,Object.assign({},cur,{_excluidoEm:Date.now()}));
+  try{await dir.removeEntry(name);}catch(e){if(!(e&&e.name==='NotFoundError'))throw e;}
+  delete D[col][rec.id];await touch();}
+const sig=()=>Object.keys(COLS).map(k=>Object.values(D[k]).map(r=>r.id+':'+r.rev).sort().join(',')).join('|');
+async function loadAll(force){
+  if(!FS.dados||FS.busy)return;FS.busy=true;
+  try{let m=null;try{m=(await readJson(await sub('config'),'alteracao.json')).t;}catch(e){}
+    if(!force&&m&&m===FS.marker&&Date.now()-FS.last<120000){setMode();return;}
+    const next={emp:{},cx:{},mov:{}};
+    for(const col in COLS){const c=COLS[col],dir=await sub(c.dir);
+      for await(const [name,hd] of dir.entries()){
+        if(hd.kind!=='file'||name.indexOf(c.pre+'_')!==0||!/\.json$/.test(name))continue;
+        const f=await hd.getFile(),key=c.dir+'/'+name;let ch=FS.cache.get(key);
+        if(!ch||ch.t!==f.lastModified||ch.s!==f.size){try{ch={t:f.lastModified,s:f.size,v:JSON.parse(await f.text())};FS.cache.set(key,ch);}catch(e){continue;}}
+        next[col][ch.v.id]=ch.v;}}
+    const before=sig();D.emp=next.emp;D.cx=next.cx;D.mov=next.mov;FS.marker=m;FS.last=Date.now();
+    setMode();if(before!==sig()||force)redraw();
+  }catch(e){if(e&&e.name==='NotAllowedError'){FS.ready=false;showConnect('perm');}else $('mode').textContent='Sem acesso à pasta do servidor agora. Tentando de novo…';}
+  finally{FS.busy=false;}}
+function setMode(){const t=new Date();$('mode').textContent='Conectado à pasta do servidor · atualizado às '+pad(t.getHours())+':'+pad(t.getMinutes())+':'+pad(t.getSeconds());}
+function guard(){if(!FS.ready){toast('Conecte à pasta do servidor primeiro.');showConnect('pick');return false;}return true;}
+function fail(e){console.error(e);
+  if(e instanceof Conflict){alert(e.message+'\nOs dados serão recarregados. Confira e refaça a alteração, se necessário.');closeM();loadAll(true);return;}
+  if(e&&e.name==='NotAllowedError'){FS.ready=false;showConnect('perm');return;}
+  alert('NÃO FOI SALVO.\nNão foi possível gravar na pasta do servidor. Confira se o Z: está acessível e tente de novo.\n\nDetalhe: '+(e&&e.message||e));}
+
+/* ---------- dados derivados ---------- */
+const locStr=c=>[c.sala&&'Sala '+c.sala,c.armario&&'Armário '+c.armario,c.estante&&'Estante '+c.estante,c.posicao&&'Posição '+c.posicao].filter(Boolean).join(' · ');
+const vol=c=>c.vol?(c.vol+(c.volTotal?' de '+c.volTotal:'')):'';
+const yrs=p=>(String(p||'').match(/\d{4}/g)||[]).map(Number);
+const nCx=eid=>Object.values(D.cx).filter(c=>c.empresaId===eid).length;
+const byCode=(a,b)=>a.codigo.localeCompare(b.codigo,'pt',{numeric:true});
+const empName=e=>e?(e.razao+(e.fantasia?' ('+e.fantasia+')':'')):'(empresa excluída)';
+const pill=s=>'<span class="pill s'+Math.max(0,SIT.indexOf(s))+'">'+esc(s)+'</span>';
+const hay=c=>{const e=D.emp[c.empresaId]||{};return norm([c.codigo,e.razao,e.fantasia,e.cnpj,mask(e.cnpj),c.tipo,c.periodo,c.descricao,locStr(c),c.situacao,c.paradeiro,c.obs].join(' '));};
+const filt=f=>Object.values(D.cx).filter(c=>{
+  if(f.sit&&c.situacao!==f.sit)return false;if(f.tipo&&c.tipo!==f.tipo)return false;if(f.emp&&c.empresaId!==f.emp)return false;
+  if(f.ano){const y=yrs(c.periodo),a=+f.ano;if(!y.length||a<Math.min(...y)||a>Math.max(...y))return false;}
+  const h=hay(c);return norm(f.q).split(/\s+/).filter(Boolean).every(t=>h.includes(t));}).sort(byCode);
+const dups=()=>{const m={};Object.values(D.cx).forEach(c=>{(m[norm(c.codigo)]=m[norm(c.codigo)]||[]).push(c.codigo);});return Object.values(m).filter(a=>a.length>1).map(a=>a[0]);};
+const cxTable=l=>!l.length?'<p class="empty">Nenhuma caixa encontrada.</p>':'<div class="tw"><table class="t"><thead><tr><th>Código</th><th>Empresa</th><th>Tipo</th><th>Período</th><th>Localização</th><th>Situação</th></tr></thead><tbody>'+
+  l.slice(0,300).map(c=>'<tr data-act="cx" data-id="'+c.id+'"><td><b>'+esc(c.codigo)+'</b>'+(vol(c)?'<div class="muted">cx '+esc(vol(c))+'</div>':'')+'</td><td>'+esc(empName(D.emp[c.empresaId]))+'</td><td>'+esc(c.tipo)+'</td><td>'+esc(c.periodo)+'</td><td>'+esc(locStr(c))+(c.paradeiro&&c.situacao!=='Armazenada'?'<div class="muted">com/para: '+esc(c.paradeiro)+'</div>':'')+'</td><td>'+pill(c.situacao)+'</td></tr>').join('')+'</tbody></table></div>'+(l.length>300?'<p class="muted">Mostrando 300 de '+l.length+'. Refine a pesquisa.</p>':'');
+const movTable=(l,showCx)=>!l.length?'<p class="empty">Nenhuma movimentação.</p>':'<div class="tw"><table class="t"><thead><tr><th>Data/hora</th>'+(showCx?'<th>Caixa</th>':'')+'<th>Tipo</th><th>Responsável</th><th>Origem</th><th>Destino</th><th>Obs.</th></tr></thead><tbody>'+
+  l.map(m=>'<tr><td>'+dtBR(m.dataHora)+'</td>'+(showCx?'<td><b>'+esc(m.codigo)+'</b><div class="muted">'+esc(m.empresa)+'</div></td>':'')+'<td>'+esc(m.tipo)+'</td><td>'+esc(m.responsavel)+'</td><td>'+esc(m.origem)+'</td><td>'+esc(m.destino)+'</td><td>'+esc(m.obs)+'</td></tr>').join('')+'</tbody></table></div>';
+const movSort=(a,b)=>(a.dataHora+String(a.criadoEm||0).padStart(15,'0')).localeCompare(b.dataHora+String(b.criadoEm||0).padStart(15,'0'));
+
+/* ---------- janelas ---------- */
+function modal(h){$('mdBox').innerHTML=h;$('md').hidden=false;}
+function closeM(){$('md').hidden=true;$('mdBox').innerHTML='';}
+
+/* ---------- telas ---------- */
+let cur='home',PF=null,REP=null;
+const V={
+home:{shell:()=>'<h1>Início</h1><div class="cards" id="cards"></div><div id="dupw"></div><div class="card"><h2>Pesquisa rápida</h2><input class="in" id="q" data-live placeholder="Código, empresa, CNPJ, descrição, localização…" autocomplete="off"><div id="res" style="margin-top:10px"></div></div><div class="card"><h2>Últimas movimentações</h2><div id="last"></div></div>',
+  res(){const cx=Object.values(D.cx),n=s=>cx.filter(c=>c.situacao===s).length,k=(b,l,s)=>'<button class="k" '+(s?'data-act="goSit" data-s="'+s+'"':'data-act="go" data-v="'+b+'"')+'><b>'+(s?n(s):b==='emp'?Object.keys(D.emp).length:cx.length)+'</b><span>'+l+'</span></button>';
+    $('cards').innerHTML=k('emp','Empresas')+k('cx','Caixas')+k('','Armazenadas','Armazenada')+k('','Retiradas','Retirada')+k('','Aguardando entrega','Aguardando entrega')+k('','Entregues','Entregue');
+    const d=dups();$('dupw').innerHTML=d.length?'<div class="warn"><b>Atenção:</b> existem códigos de caixa duplicados ('+esc(d.join(', '))+'). Edite uma das caixas para corrigir.</div>':'';
+    const q=$('q').value;$('res').innerHTML=T(q)?cxTable(filt({q}).slice(0,15)):'<p class="muted">Digite para localizar caixas.</p>';
+    $('last').innerHTML=movTable(Object.values(D.mov).sort(movSort).reverse().slice(0,8),true);}},
+cx:{shell(){const f=PF||{};PF=null;return '<h1>Caixas</h1><div class="card"><div class="g"><div style="grid-column:span 2"><label>Pesquisar</label><input class="in" id="fq" data-live placeholder="Código, empresa, CNPJ, descrição, localização…" autocomplete="off"></div><div><label>Situação</label><select id="fs" data-live>'+opt(SIT,f.sit,'Todas')+'</select></div><div><label>Tipo</label><select id="ft" data-live>'+opt(TIPOS,'','Todos')+'</select></div><div><label>Empresa</label><select id="fe" data-live><option value="">Todas</option>'+Object.values(D.emp).sort((a,b)=>a.razao.localeCompare(b.razao)).map(e=>'<option value="'+e.id+'">'+esc(e.razao)+'</option>').join('')+'</select></div><div><label>Ano</label><input class="in" id="fa" data-live inputmode="numeric" maxlength="4" placeholder="ex.: 2019"></div></div><div class="bar"><button class="btn pri" data-act="cxNew">+ Nova caixa</button></div></div><div class="card" id="res"></div>';},
+  res(){const l=filt({q:$('fq').value,sit:$('fs').value,tipo:$('ft').value,emp:$('fe').value,ano:T($('fa').value)});$('res').innerHTML='<p class="muted">'+l.length+' caixa(s)</p>'+cxTable(l);}},
+emp:{shell:()=>'<h1>Empresas</h1><div class="card"><div class="bar"><input class="in" id="eq" data-live placeholder="Pesquisar razão social, fantasia ou CNPJ…" style="max-width:420px" autocomplete="off"><span class="sp"></span><button class="btn pri" data-act="empNew">+ Nova empresa</button></div><div id="res"></div></div>',
+  res(){const ts=norm($('eq').value).split(/\s+/).filter(Boolean),l=Object.values(D.emp).filter(e=>{const h=norm(e.razao+' '+e.fantasia+' '+e.cnpj+' '+mask(e.cnpj));return ts.every(t=>h.includes(t));}).sort((a,b)=>a.razao.localeCompare(b.razao));
+    $('res').innerHTML=!l.length?'<p class="empty">Nenhuma empresa encontrada.</p>':'<div class="tw"><table class="t"><thead><tr><th>Razão social</th><th>Nome fantasia</th><th>CNPJ</th><th>Caixas</th></tr></thead><tbody>'+l.map(e=>'<tr data-act="emp" data-id="'+e.id+'"><td><b>'+esc(e.razao)+'</b></td><td>'+esc(e.fantasia)+'</td><td>'+esc(mask(e.cnpj))+'</td><td>'+nCx(e.id)+'</td></tr>').join('')+'</tbody></table></div>';}},
+mov:{shell:()=>'<h1>Movimentações</h1><div class="card"><div class="bar"><input class="in" id="mq" data-live placeholder="Pesquisar caixa, empresa, responsável…" style="max-width:360px" autocomplete="off"><select id="mt" data-live style="max-width:220px">'+opt(['Cadastro'].concat(MOVS),'','Todos os tipos')+'</select><span class="sp"></span><button class="btn pri" data-act="mov">+ Registrar movimentação</button></div><div id="res"></div></div>',
+  res(){const ts=norm($('mq').value).split(/\s+/).filter(Boolean),t=$('mt').value,l=Object.values(D.mov).filter(m=>(!t||m.tipo===t)&&ts.every(x=>norm([m.codigo,m.empresa,m.responsavel,m.origem,m.destino,m.obs].join(' ')).includes(x))).sort(movSort).reverse();
+    $('res').innerHTML='<p class="muted">'+l.length+' movimentação(ões)'+(l.length>400?' — mostrando 400':'')+'</p>'+movTable(l.slice(0,400),true);}},
+rep:{shell:()=>'<h1>Relatórios</h1><div class="card noprint"><div class="g"><div><label>Relatório</label><select id="rt"><option value="all">Todas as caixas</option><option value="emp">Caixas de uma empresa</option><option value="ano">Caixas por ano/período</option><option value="tipo">Caixas por tipo de documento</option><option value="loc">Caixas por localização</option><option value="pend">Caixas retiradas ou aguardando entrega</option><option value="hist">Histórico de movimentações</option></select></div><span id="rp" style="display:contents"></span></div><div class="bar"><button class="btn pri" data-act="rep">Gerar</button><button class="btn" data-act="csv">Exportar CSV (Excel)</button><button class="btn" data-act="print">Imprimir</button></div></div><div class="card" id="rout"><p class="muted">Escolha o relatório e clique em Gerar.</p></div>',
+  res(){repParams();}}};
+function repParams(){const t=$('rt').value,es=Object.values(D.emp).sort((a,b)=>a.razao.localeCompare(b.razao)),x={
+  emp:'<div><label>Empresa</label><select id="p1">'+es.map(e=>'<option value="'+e.id+'">'+esc(e.razao)+'</option>').join('')+'</select></div>',
+  ano:'<div><label>De (ano)</label><input class="in" id="p1" maxlength="4" inputmode="numeric"></div><div><label>Até (ano)</label><input class="in" id="p2" maxlength="4" inputmode="numeric"></div>',
+  tipo:'<div><label>Tipo</label><select id="p1">'+opt(TIPOS)+'</select></div>',
+  loc:'<div><label>Localização contém</label><input class="in" id="p1" placeholder="ex.: sala 1 armário 2"></div>',
+  hist:'<div><label>Caixa / empresa / responsável</label><input class="in" id="p1"></div><div><label>De</label><input class="in" id="p2" type="date"></div><div><label>Até</label><input class="in" id="p3" type="date"></div>'}[t]||'';$('rp').innerHTML=x;}
+function genRep(){const t=$('rt').value,g=id=>$(id)?$(id).value:'',names={all:'Todas as caixas',emp:'Caixas por empresa',ano:'Caixas por ano/período',tipo:'Caixas por tipo de documento',loc:'Caixas por localização',pend:'Caixas retiradas ou aguardando entrega',hist:'Histórico de movimentações'};let l;
+  if(t==='hist'){const ts=norm(g('p1')).split(/\s+/).filter(Boolean),a=g('p2'),b=g('p3');
+    l=Object.values(D.mov).filter(m=>ts.every(x=>norm([m.codigo,m.empresa,m.responsavel,m.tipo].join(' ')).includes(x))&&(!a||m.dataHora.slice(0,10)>=a)&&(!b||m.dataHora.slice(0,10)<=b)).sort(movSort);
+    REP={title:names[t],head:['Data/hora','Caixa','Empresa','Tipo','Responsável','Origem','Destino','Observações'],rows:l.map(m=>[dtBR(m.dataHora),m.codigo,m.empresa,m.tipo,m.responsavel,m.origem,m.destino,m.obs])};}
+  else{let all=Object.values(D.cx).sort(byCode);
+    if(t==='emp')all=all.filter(c=>c.empresaId===g('p1'));
+    if(t==='tipo')all=all.filter(c=>c.tipo===g('p1'));
+    if(t==='pend')all=all.filter(c=>c.situacao==='Retirada'||c.situacao==='Aguardando entrega');
+    if(t==='loc'){const ts=norm(g('p1')).split(/\s+/).filter(Boolean);all=all.filter(c=>ts.every(x=>norm(locStr(c)).includes(x)));}
+    if(t==='ano'){const a=+g('p1')||0,b=+g('p2')||9999;all=all.filter(c=>{const y=yrs(c.periodo);return y.length&&Math.min(...y)<=b&&Math.max(...y)>=a;});}
+    REP={title:names[t],head:['Código','Empresa','CNPJ','Tipo','Período','Descrição','Caixa nº','Sala','Armário','Estante','Posição','Situação','Com / destino','Cadastro','Observações'],
+      rows:all.map(c=>{const e=D.emp[c.empresaId]||{};return[c.codigo,e.razao||'',mask(e.cnpj),c.tipo,c.periodo,c.descricao,vol(c),c.sala,c.armario,c.estante,c.posicao,c.situacao,c.paradeiro,dBR(c.dataCadastro),c.obs];})};}
+  $('rout').innerHTML='<h2>'+esc(REP.title)+'</h2><p class="muted">'+REP.rows.length+' registro(s) · gerado em '+dtBR(nowL())+'</p>'+(REP.rows.length?'<div class="tw"><table class="t"><thead><tr>'+REP.head.map(h=>'<th>'+h+'</th>').join('')+'</tr></thead><tbody>'+REP.rows.map(r=>'<tr>'+r.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>':'<p class="empty">Nada encontrado.</p>');}
+function csv(){if(!REP||!REP.rows.length)return toast('Gere um relatório com resultados primeiro.');
+  const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"',txt='\uFEFF'+[REP.head].concat(REP.rows).map(r=>r.map(q).join(';')).join('\r\n'),a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv;charset=utf-8'}));a.download='arquivo-morto-'+today()+'.csv';document.body.appendChild(a);a.click();a.remove();}
+function go(v){cur=v;document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('main').innerHTML=V[v].shell();V[v].res();}
+function redraw(){if(FS.ready&&V[cur]&&cur!=='rep')V[cur].res();}
+
+/* ---------- empresas ---------- */
+function empForm(id){const e=id?D.emp[id]:{};modal('<h2>'+(id?'Editar empresa':'Nova empresa')+'</h2><form id="fEmp" data-id="'+(id||'')+'"><div class="g w"><div><label>Razão social *</label><input class="in" name="razao" value="'+esc(e.razao)+'" required></div><div><label>Nome fantasia</label><input class="in" name="fantasia" value="'+esc(e.fantasia)+'"></div><div><label>CNPJ</label><input class="in" name="cnpj" value="'+esc(mask(e.cnpj))+'" placeholder="00.000.000/0000-00"></div></div><label>Observações</label><textarea name="obs" rows="3">'+esc(e.obs)+'</textarea><p class="err" id="fe"></p><div class="bar"><span class="sp"></span><button type="button" class="btn" data-act="close">Cancelar</button><button class="btn pri">Salvar</button></div></form>');}
+async function subEmp(f){const v=Object.fromEntries(new FormData(f)),id=f.dataset.id,fe=$('fe'),cn=String(v.cnpj||'').replace(/[^0-9A-Za-z]/g,'').toUpperCase();
+  if(!T(v.razao))return fe.textContent='Informe a razão social.';
+  if(cn&&cn.length!==14)return fe.textContent='O CNPJ deve ter 14 caracteres.';
+  if(!guard())return;
+  try{await loadAll(false);const d=cn&&Object.values(D.emp).find(e=>e.id!==id&&e.cnpj===cn);if(d)return fe.textContent='Já existe uma empresa com este CNPJ: '+d.razao+'.';
+    const old=id?D.emp[id]:null;await save('emp',Object.assign({},old||{id:newId(),criadoEm:Date.now()},{razao:T(v.razao),fantasia:T(v.fantasia),cnpj:cn,obs:T(v.obs)}),!old);
+    closeM();toast('Empresa salva.');redraw();}catch(e){fail(e);}}
+function empDetail(id){const e=D.emp[id];if(!e)return;const l=Object.values(D.cx).filter(c=>c.empresaId===id).sort(byCode);
+  modal('<h2>'+esc(e.razao)+'</h2><dl><dt>Nome fantasia</dt><dd>'+esc(e.fantasia||'—')+'</dd><dt>CNPJ</dt><dd>'+esc(mask(e.cnpj)||'—')+'</dd><dt>Caixas</dt><dd>'+l.length+'</dd><dt>Observações</dt><dd>'+esc(e.obs||'—')+'</dd></dl><div class="bar"><button class="btn pri" data-act="cxNew" data-emp="'+id+'">+ Nova caixa</button><button class="btn" data-act="empEdit" data-id="'+id+'">Editar</button><button class="btn dng" data-act="empDel" data-id="'+id+'">Excluir</button><span class="sp"></span><button class="btn" data-act="close">Fechar</button></div><h2>Caixas desta empresa</h2>'+cxTable(l));}
+async function delEmp(id){const e=D.emp[id],n=nCx(id);if(!e)return;
+  if(n){alert('Esta empresa possui '+n+' caixa(s) vinculada(s) e não pode ser excluída.\nExclua as caixas ou mude-as para outra empresa antes.');return;}
+  if(!confirm('Excluir a empresa "'+e.razao+'"?\nUma cópia ficará guardada em dados\\lixeira.'))return;if(!guard())return;
+  try{await remove('emp',e);closeM();toast('Empresa excluída.');redraw();}catch(x){fail(x);}}
+
+/* ---------- caixas ---------- */
+const uniq=k=>[...new Set(Object.values(D.cx).map(c=>c[k]).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt',{numeric:true}));
+function cxForm(id,empId){const c=id?D.cx[id]:{situacao:'Armazenada',empresaId:empId||'',dataCadastro:today()},es=Object.values(D.emp).sort((a,b)=>a.razao.localeCompare(b.razao));
+  if(!es.length)return alert('Cadastre ao menos uma empresa antes de cadastrar caixas.');
+  const L=(k,lab)=>'<div><label>'+lab+'</label><input class="in" name="'+k+'" list="dl_'+k+'" value="'+esc(c[k])+'"></div>',dl=k=>'<datalist id="dl_'+k+'">'+uniq(k).map(x=>'<option value="'+esc(x)+'">').join('')+'</datalist>';
+  modal('<h2>'+(id?'Editar caixa':'Nova caixa')+'</h2><form id="fCx" data-id="'+(id||'')+'"><div class="g w"><div><label>Código da caixa * (único)</label><div style="display:flex;gap:6px"><input class="in" name="codigo" value="'+esc(c.codigo)+'" required>'+(id?'':'<button type="button" class="btn" data-act="sug" title="Sugerir próximo código">Sugerir</button>')+'</div></div><div><label>Empresa *</label><select name="empresaId" required><option value="">Selecione…</option>'+es.map(e=>'<option value="'+e.id+'"'+(e.id===c.empresaId?' selected':'')+'>'+esc(e.razao)+'</option>').join('')+'</select></div><div><label>Tipo de documento *</label><select name="tipo" required>'+opt(TIPOS,c.tipo,'Selecione…')+'</select></div><div><label>Ano ou período * (ex.: 2019 ou 2018-2020)</label><input class="in" name="periodo" value="'+esc(c.periodo)+'" required></div></div>'+
+  '<label>Descrição do conteúdo</label><textarea name="descricao" rows="2">'+esc(c.descricao)+'</textarea><div class="g" style="margin-top:10px"><div><label>Caixa nº (ex.: 2)</label><input class="in" name="vol" inputmode="numeric" value="'+esc(c.vol)+'"></div><div><label>de total (ex.: 5)</label><input class="in" name="volTotal" inputmode="numeric" value="'+esc(c.volTotal)+'"></div></div>'+
+  '<div class="g">'+L('sala','Sala')+L('armario','Armário')+L('estante','Estante')+L('posicao','Posição')+'</div>'+['sala','armario','estante','posicao'].map(dl).join('')+
+  '<div class="g"><div><label>Situação</label>'+(id?'<input class="in" value="'+esc(c.situacao)+'" disabled><div class="muted">Altere pela opção "Movimentar".</div>':'<select name="situacao">'+opt(SIT,c.situacao)+'</select>')+'</div><div><label>Data de cadastro</label><input class="in" type="date" name="dataCadastro" value="'+esc(c.dataCadastro)+'"></div></div><label>Observações</label><textarea name="obs" rows="2">'+esc(c.obs)+'</textarea><p class="err" id="fe"></p><div class="bar"><span class="sp"></span><button type="button" class="btn" data-act="close">Cancelar</button><button class="btn pri">Salvar</button></div></form>');}
+async function addMov(c,tipo,o){const e=D.emp[c.empresaId]||{};await save('mov',{id:newId(),caixaId:c.id,codigo:c.codigo,empresa:e.razao||'',tipo,dataHora:o.dataHora||nowL(),responsavel:o.responsavel||'',origem:o.origem||'',destino:o.destino||'',obs:o.obs||'',criadoEm:Date.now()},true);}
+async function subCx(f){const v=Object.fromEntries(new FormData(f)),id=f.dataset.id,fe=$('fe'),cod=T(v.codigo);
+  if(!cod||!v.empresaId||!v.tipo||!T(v.periodo))return fe.textContent='Preencha código, empresa, tipo de documento e ano/período.';
+  if(!T(v.sala)&&!T(v.armario)&&!T(v.estante)&&!T(v.posicao))return fe.textContent='Informe ao menos um dado de localização (sala, armário, estante ou posição).';
+  if(!guard())return;let saved,old;
+  try{await loadAll(false);const d=Object.values(D.cx).find(x=>x.id!==id&&norm(x.codigo)===norm(cod));
+    if(d)return fe.textContent='Já existe uma caixa com o código "'+d.codigo+'" ('+empName(D.emp[d.empresaId])+').';
+    if(!D.emp[v.empresaId])return fe.textContent='A empresa selecionada não existe mais.';
+    old=id?D.cx[id]:null;if(id&&!old)throw new Conflict('Esta caixa foi excluída por outra pessoa.');
+    saved=await save('cx',Object.assign({},old||{id:newId(),criadoEm:Date.now(),paradeiro:''},{codigo:cod,empresaId:v.empresaId,tipo:v.tipo,periodo:T(v.periodo),descricao:T(v.descricao),vol:T(v.vol),volTotal:T(v.volTotal),sala:T(v.sala),armario:T(v.armario),estante:T(v.estante),posicao:T(v.posicao),situacao:old?old.situacao:v.situacao,dataCadastro:v.dataCadastro||today(),obs:T(v.obs)}),!old);
+  }catch(e){return fail(e);}
+  try{if(!old)await addMov(saved,'Cadastro',{destino:locStr(saved)+' · '+saved.situacao});else if(locStr(old)!==locStr(saved))await addMov(saved,'Mudança de localização',{origem:locStr(old),destino:locStr(saved)});}
+  catch(e){alert('A caixa foi salva, mas o registro no histórico NÃO foi gravado.\nRegistre a movimentação manualmente.\n\nDetalhe: '+(e&&e.message||e));}
+  closeM();toast('Caixa salva.');redraw();}
+function cxDetail(id){const c=D.cx[id];if(!c)return;const e=D.emp[c.empresaId];
+  modal('<h2>Caixa '+esc(c.codigo)+' '+pill(c.situacao)+'</h2><dl><dt>Empresa</dt><dd>'+(e?'<a href="#" data-act="emp" data-id="'+e.id+'">'+esc(empName(e))+'</a>'+(e.cnpj?' · '+esc(mask(e.cnpj)):''):'(empresa excluída)')+'</dd><dt>Tipo</dt><dd>'+esc(c.tipo)+'</dd><dt>Período</dt><dd>'+esc(c.periodo)+'</dd><dt>Descrição</dt><dd>'+esc(c.descricao||'—')+'</dd><dt>Caixa nº</dt><dd>'+esc(vol(c)||'—')+'</dd><dt>Local de guarda</dt><dd>'+esc(locStr(c))+'</dd>'+(c.situacao!=='Armazenada'&&c.paradeiro?'<dt>Com / destino</dt><dd>'+esc(c.paradeiro)+'</dd>':'')+'<dt>Cadastro</dt><dd>'+dBR(c.dataCadastro)+'</dd><dt>Observações</dt><dd>'+esc(c.obs||'—')+'</dd></dl><div class="bar"><button class="btn pri" data-act="mov" data-id="'+id+'">Movimentar</button><button class="btn" data-act="cxEdit" data-id="'+id+'">Editar</button><button class="btn dng" data-act="cxDel" data-id="'+id+'">Excluir</button><span class="sp"></span><button class="btn" data-act="close">Fechar</button></div><h2>Histórico (do mais antigo ao mais recente)</h2>'+movTable(Object.values(D.mov).filter(m=>m.caixaId===id).sort(movSort),false));}
+async function delCx(id){const c=D.cx[id];if(!c)return;
+  if(!confirm('Excluir a caixa "'+c.codigo+'"?\nO histórico de movimentações continua guardado e uma cópia da caixa fica em dados\\lixeira.'))return;if(!guard())return;
+  try{await remove('cx',c);closeM();toast('Caixa excluída.');redraw();}catch(e){fail(e);}}
+
+/* ---------- movimentações ---------- */
+function movForm(id,tipo){const c=id?D.cx[id]:null,t=tipo||'Retirada';
+  modal('<h2>Registrar movimentação</h2><form id="fMov" data-id="'+(id||'')+'" data-rev="'+(c?c.rev:'')+'"><div class="g w"><div><label>Caixa *</label>'+(c?'<input class="in" value="'+esc(c.codigo+' — '+empName(D.emp[c.empresaId]))+'" disabled>':'<input class="in" name="codigo" list="dl_cod" placeholder="Digite o código da caixa" required autocomplete="off"><datalist id="dl_cod">'+Object.values(D.cx).sort(byCode).map(x=>'<option value="'+esc(x.codigo)+'">').join('')+'</datalist>')+'</div><div><label>Tipo *</label><select name="tipo" id="mvT">'+opt(MOVS,t)+'</select></div><div><label>Data e horário</label><input class="in" type="datetime-local" name="dataHora" value="'+nowL()+'"></div><div><label>Responsável (quem realizou)</label><input class="in" name="responsavel"></div></div>'+
+  '<div id="mvLoc"><div class="g">'+['sala:Sala','armario:Armário','estante:Estante','posicao:Posição'].map(s=>{const[k,l]=s.split(':');return'<div><label>Novo local — '+l+'</label><input class="in" name="'+k+'" value="'+esc(c?c[k]:'')+'"></div>';}).join('')+'</div></div>'+
+  '<div id="mvDst" hidden><label>Destino / com quem</label><input class="in" name="destino" placeholder="ex.: João (Fiscal), cliente, sala de reunião"></div><div id="mvSit" hidden style="margin-top:10px"><label>Nova situação</label><select name="situacao"><option value="">Manter a atual</option>'+opt(SIT)+'</select></div><label style="margin-top:10px">Observações</label><textarea name="obs" rows="2"></textarea><p class="err" id="fe"></p><div class="bar"><span class="sp"></span><button type="button" class="btn" data-act="close">Cancelar</button><button class="btn pri">Registrar</button></div></form>');mvToggle();}
+function mvToggle(){const t=$('mvT').value,L=t==='Devolução'||t==='Mudança de localização';$('mvLoc').hidden=!L;$('mvDst').hidden=L;$('mvSit').hidden=t!=='Outra movimentação';}
+async function subMov(f){const v=Object.fromEntries(new FormData(f)),fe=$('fe'),t=v.tipo;if(!guard())return;
+  try{await loadAll(false);const c=f.dataset.id?D.cx[f.dataset.id]:Object.values(D.cx).find(x=>norm(x.codigo)===norm(v.codigo||''));
+    if(!c)return fe.textContent='Caixa não encontrada. Confira o código.';
+    if(f.dataset.rev&&+f.dataset.rev!==c.rev)return fe.textContent='Esta caixa foi alterada por outra pessoa. Feche, confira os dados atuais e registre de novo.';
+    const n=Object.assign({},c),origem=c.situacao!=='Armazenada'&&c.paradeiro?c.paradeiro:locStr(c);let destino;
+    if(t==='Devolução'||t==='Mudança de localização'){['sala','armario','estante','posicao'].forEach(k=>{n[k]=T(v[k]);});if(!locStr(n))return fe.textContent='Informe o novo local da caixa.';if(t==='Devolução'){n.situacao='Armazenada';n.paradeiro='';}destino=locStr(n);}
+    else{const d=T(v.destino);n.situacao={'Retirada':'Retirada','Aguardando entrega':'Aguardando entrega','Entrega':'Entregue'}[t]||v.situacao||c.situacao;if(d)n.paradeiro=d;if(n.situacao==='Armazenada')n.paradeiro='';destino=d||n.situacao;}
+    const s=await save('cx',n,false);
+    try{await addMov(s,t,{dataHora:v.dataHora,responsavel:T(v.responsavel),origem,destino,obs:T(v.obs)});}
+    catch(e){alert('A situação da caixa foi atualizada, mas o registro no histórico NÃO foi gravado.\nDetalhe: '+(e&&e.message||e));}
+    closeM();toast('Movimentação registrada.');redraw();
+  }catch(e){fail(e);}}
+
+/* ---------- eventos ---------- */
+document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t)return;e.preventDefault();const a=t.dataset.act,id=t.dataset.id;
+  if(a==='go')go(t.dataset.v);else if(a==='goSit'){PF={sit:t.dataset.s};go('cx');}
+  else if(a==='cx')cxDetail(id);else if(a==='cxNew'){if(guard())cxForm(null,t.dataset.emp);}else if(a==='cxEdit')cxForm(id);else if(a==='cxDel')delCx(id);
+  else if(a==='mov'){if(guard())movForm(id);}else if(a==='emp')empDetail(id);else if(a==='empNew'){if(guard())empForm();}else if(a==='empEdit')empForm(id);else if(a==='empDel')delEmp(id);
+  else if(a==='close')closeM();else if(a==='refresh'){if(guard())loadAll(true).then(()=>toast('Dados atualizados.'));}
+  else if(a==='rep')genRep();else if(a==='csv')csv();else if(a==='print')window.print();
+  else if(a==='sug'){const n=Object.values(D.cx).map(c=>(/^CX-?(\d+)$/i.exec(c.codigo)||[])[1]).filter(Boolean).map(Number);document.querySelector('#fCx [name=codigo]').value='CX-'+String((n.length?Math.max(...n):0)+1).padStart(4,'0');}});
+document.addEventListener('submit',e=>{e.preventDefault();const f=e.target;if(f.id==='fEmp')subEmp(f);else if(f.id==='fCx')subCx(f);else if(f.id==='fMov')subMov(f);});
+document.addEventListener('input',e=>{const t=e.target;if(t.name==='cnpj')t.value=mask(t.value);if(t.dataset&&t.dataset.live!==undefined&&V[cur])V[cur].res();if(t.id==='rt')repParams();});
+document.addEventListener('change',e=>{if(e.target.id==='rt')repParams();if(e.target.id==='mvT')mvToggle();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('md').hidden)closeM();});
+
+/* ---------- conexão com a pasta (mesma abordagem da Agenda Michele) ---------- */
+const IDB={open(){return new Promise((ok,no)=>{const r=indexedDB.open('arquivo-morto',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error);});},
+  async get(k){try{const db=await this.open();return await new Promise(ok=>{const q=db.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>ok(q.result);q.onerror=()=>ok(null);});}catch(e){return null;}},
+  async set(k,v){try{const db=await this.open();db.transaction('kv','readwrite').objectStore('kv').put(v,k);}catch(e){}}};
+function diag(x){$('cxDiag').textContent='Diagnóstico: '+navigator.userAgent.slice(0,70)+' · seletor de pasta: '+(typeof window.showDirectoryPicker==='function'?'sim':'não')+' · '+decodeURI(location.href)+(x?' · '+x:'');}
+function showConnect(kind){$('cx').hidden=false;diag();const b=$('cxBtn'),t=$('cxTxt');$('cxErr').textContent='';
+  if(kind==='nosupport'){t.textContent='Este navegador não consegue gravar na pasta do servidor. Abra o arquivo "Arquivo Morto" no Google Chrome ou no Microsoft Edge.';b.hidden=true;return;}
+  b.hidden=false;b.dataset.kind=kind||'pick';
+  if(kind==='perm'){t.textContent='O navegador pede uma confirmação para voltar a usar a pasta do Arquivo Morto no servidor.';b.textContent='Continuar';}
+  else{t.textContent='Na primeira vez em cada computador, escolha a pasta "Arquivo Morto" no servidor (a mesma pasta onde está este arquivo) e clique em "Permitir" para editar.';b.textContent='Escolher a pasta do Arquivo Morto';}}
+async function useRoot(root){
+  let mine=false;for await(const [n,h] of root.entries()){if(h.kind==='file'&&/arquivo.*morto.*\.html?$/i.test(n))mine=true;}
+  if(!mine){$('cxErr').textContent='Essa não é a pasta do Arquivo Morto. Escolha a pasta onde fica o arquivo "Arquivo Morto.html".';return false;}
+  FS.dados=await root.getDirectoryHandle('dados',{create:true});
+  for(const k of['empresas','caixas','movimentacoes','config','lixeira'])await sub(k);
+  const cfg=await sub('config');try{await cfg.getFileHandle('sistema.json');}catch(e){if(e&&e.name==='NotFoundError')await writeFile(cfg,'sistema.json',{app:'arquivo-morto',versao:1,criadoEm:Date.now()});else throw e;}
+  await IDB.set('pasta',root);$('cx').hidden=true;FS.ready=true;await loadAll(true);go(cur);return true;}
+$('cxBtn').addEventListener('click', async () => {
+  const b = $('cxBtn');
+  const kind = b.dataset.kind;
+
+  if (b.disabled) return;
+
+  b.disabled = true;
+  $('cxErr').textContent = '';
+  b.textContent = 'Conectando...';
+
+  try {
+    if (kind === 'perm' && FS.saved) {
+      try {
+        const permission = await FS.saved.requestPermission({
+          mode: 'readwrite'
+        });
+
+        if (permission === 'granted') {
+          if (await useRoot(FS.saved)) return;
+        }
+      } catch (err) {
+        if (err && err.name === 'NotFoundError') {
+          /* a pasta guardada de antes foi movida/renomeada: esquecer e pedir de novo */
+          FS.saved = null;
+          await IDB.set('pasta', null);
+          b.dataset.kind = 'pick';
+          $('cxTxt').textContent = 'Na primeira vez em cada computador, escolha a pasta "Arquivo Morto" no servidor (a mesma pasta onde está este arquivo) e clique em "Permitir" para editar.';
+          $('cxErr').textContent = 'A pasta usada antes não foi encontrada (foi movida ou renomeada). Clique de novo no botão e escolha a pasta atual.';
+          return;
+        }
+        throw err;
+      }
+    }
+
+    if (typeof window.showDirectoryPicker !== 'function') {
+      throw new Error(
+        'Este navegador não oferece suporte à seleção de pastas.'
+      );
+    }
+
+    const root = await window.showDirectoryPicker({
+      id: 'arquivo-morto',
+      mode: 'readwrite'
+    });
+
+    const permission = await root.requestPermission({
+      mode: 'readwrite'
+    });
+
+    if (permission !== 'granted') {
+      $('cxErr').textContent =
+        'Permissão de edição não concedida. Tente novamente.';
+      return;
+    }
+
+    await useRoot(root);
+
+  } catch (e) {
+    console.error('Erro ao conectar a pasta:', e);
+    diag((e && e.name) + ': ' + (e && e.message));
+
+    if (e && e.name === 'AbortError') {
+      $('cxErr').textContent =
+        'A seleção da pasta foi cancelada ou interrompida. ' +
+        'Tente novamente. Se o erro continuar, pode haver uma ' +
+        'restrição do navegador ou da pasta de rede.';
+    } else if (e && e.name === 'NotFoundError') {
+      $('cxErr').textContent =
+        'Pasta ou arquivo não encontrado. Escolha a pasta que contém o arquivo "Arquivo Morto.html" e a pasta "dados" (não a subpasta "Arquivo Morto").';
+    } else if (e && e.name === 'SecurityError') {
+      $('cxErr').textContent =
+        'O navegador bloqueou o acesso à pasta. Verifique as ' +
+        'políticas de segurança da empresa.';
+    } else {
+      $('cxErr').textContent =
+        'Não foi possível conectar à pasta: ' +
+        (e && e.message ? e.message : String(e));
+    }
+
+  } finally {
+    b.disabled = false;
+    b.textContent =
+      b.dataset.kind === 'perm'
+        ? 'Continuar'
+        : 'Escolher a pasta do Arquivo Morto';
+  }
+});
+
+/* ---------- início ---------- */
+go('home');
+(async()=>{
+  if(typeof window.showDirectoryPicker!=='function'){showConnect('nosupport');return;}
+  const saved=await IDB.get('pasta');FS.saved=saved;
+  if(saved){try{if(await saved.queryPermission({mode:'readwrite'})==='granted'){if(await useRoot(saved))return;}}catch(e){if(e&&e.name==='NotFoundError'){FS.saved=null;IDB.set('pasta',null);showConnect('pick');$('cxErr').textContent='A pasta usada antes não foi encontrada (foi movida ou renomeada). Escolha a pasta de novo.';return;}}showConnect('perm');return;}
+  showConnect('pick');})();
+setInterval(()=>{if(FS.ready&&!document.hidden)loadAll(false);},10000);
+document.addEventListener('visibilitychange',()=>{if(FS.ready&&!document.hidden)loadAll(false);});
+})();
+</script>
+</body>
+</html>
